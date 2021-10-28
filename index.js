@@ -34,7 +34,7 @@ run().catch(console.dir);
 // 
 app.get('/', (req, res) => {
     console.log('connected from get')
-    res.send('Hello World!')
+    res.send('Hello World! from heroku')
 })
 
 app.listen(port, () => {
