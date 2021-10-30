@@ -96,7 +96,7 @@ run().catch(console.dir);
 // 
 app.get('/', (req, res) => {
     console.log('connected from get')
-    res.send('Hello World! from heroku')
+    res.send('Hello World! from Assaignment 11')
 })
 
 app.listen(port, () => {
