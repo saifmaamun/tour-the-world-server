@@ -26,12 +26,21 @@ async function run() {
         await client.connect();
         const database = client.db("tourTheWorld");
         const tourCollaction = database.collection("tours");
+        const bookedTour = database.collection("booked");
 
         // GET API
         app.get('/destinations', async (req, res) => {
             const cursor = tourCollaction.find({});
             const destinations = await cursor.toArray();
             res.send(destinations);
+        })
+
+        // for booking
+        // GET API
+        app.get('/booked', async (req, res) => {
+            const cursor = bookedTour.find({});
+            const booked = await cursor.toArray();
+            res.send(booked);
         })
 
         // GET A SINGEL API
@@ -52,6 +61,27 @@ async function run() {
             console.log(result)
             res.json(result)
         })
+
+        // for booking
+        // POST API
+        app.post('/booked', async (req, res) => {
+            const booked = req.body;
+            console.log('hitting', booked)
+
+            const result = await bookedTour.insertOne(booked);
+            console.log(result)
+            res.json(result)
+        })
+
+        //DELETE API
+        app.delete('/destinations/:id', async (req, res) => {
+            const id = req.params.id;
+            const query = { _id: ObjectId(id) };
+            const result = await tourCollaction.deleteOne(query)
+            console.log(result)
+            res.json(result)
+        })
+
 
 
     } finally {
