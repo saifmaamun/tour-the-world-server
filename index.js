@@ -40,6 +40,7 @@ async function run() {
         app.get('/booked', async (req, res) => {
             const cursor = bookedTour.find({});
             const booked = await cursor.toArray();
+            console.log("showing from booked", booked)
             res.send(booked);
         })
 
@@ -72,7 +73,15 @@ async function run() {
             console.log(result)
             res.json(result)
         })
-
+        // for booking
+        //DELETE API
+        app.delete('/booked/:id', async (req, res) => {
+            const id = req.params.id;
+            const query = { _id: new ObjectId(id) };
+            const result = await bookedTour.deleteOne(query)
+            console.log(result)
+            res.json(result)
+        })
         //DELETE API
         app.delete('/destinations/:id', async (req, res) => {
             const id = req.params.id;
